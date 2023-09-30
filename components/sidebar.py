@@ -12,11 +12,21 @@ import pandas as pd
 
 from globals import *
 
+sb_style = {
+    'padding-top': '25px',
+    'padding-right': '25px',
+    'padding-left': '25px'
+}
+
 # ========= Layout ========= #
 layout = dbc.Col([
-    html.H3("Personal", className='text-primary', style={'text-align': 'center'}),
-    html.H3("Finance", className='text-primary', style={'text-align': 'center'}),
-    html.Hr(),
+    html.Img(
+        src='/assets/logoapp.png',
+        className='logo_app',
+        style={'margin-left': '10px'}
+    ),
+    # html.H3("Personal", className='text-primary', style={'text-align': 'center'}),
+    # html.H3("Finance", className='text-primary', style={'text-align': 'center'}),
     
     # Perfil
     # dbc.Button(
@@ -57,12 +67,12 @@ layout = dbc.Col([
                 dbc.Col([
                     dbc.Label('Descrição da receita: '),
                     dbc.Input(placeholder="Ex.: salário, dividendos...", id='revenue-txt')
-                ], width=6),
+                ], width=6, style={'margin-right': '63px'}),
                 
                 dbc.Col([
                     dbc.Label('Valor: '),
                     dbc.Input(placeholder="R$100.00", id='revenue-value', value='')
-                ], width=6)
+                ], width=5)
             ]),
             
             dbc.Row([
@@ -108,8 +118,7 @@ layout = dbc.Col([
                             dbc.Row([
                                 dbc.Col([
                                     html.Legend(
-                                        'Adicionar categoria',
-                                        style={'color': 'green'}
+                                        'Adicionar categoria'
                                     ),
                                     dbc.Input(
                                         type='text',
@@ -133,8 +142,7 @@ layout = dbc.Col([
                                 
                                 dbc.Col([
                                     html.Legend(
-                                        'Remover categoria',
-                                        style={'color': 'red'}
+                                        'Remover categoria'
                                     ),
                                     dbc.Checklist(
                                         id='checklist-selected-style-revenue',
@@ -191,12 +199,12 @@ layout = dbc.Col([
                 dbc.Col([
                     dbc.Label('Descrição da despesa: '),
                     dbc.Input(placeholder="Ex.: gasolina, supermercado...", id='expense-txt')
-                ], width=6),
+                ], width=6, style={'margin-right': '63px'}),
                 
                 dbc.Col([
                     dbc.Label('Valor: '),
                     dbc.Input(placeholder="R$100.00", id='expense-value', value='')
-                ], width=6)
+                ], width=5)
             ]),
             
             dbc.Row([
@@ -242,8 +250,7 @@ layout = dbc.Col([
                             dbc.Row([
                                 dbc.Col([
                                     html.Legend(
-                                        'Adicionar categoria',
-                                        style={'color': 'green'}
+                                        'Adicionar categoria'
                                     ),
                                     dbc.Input(
                                         type='text',
@@ -267,8 +274,7 @@ layout = dbc.Col([
                                 
                                 dbc.Col([
                                     html.Legend(
-                                        'Remover categoria',
-                                        style={'color': 'red'}
+                                        'Remover categoria'
                                     ),
                                     dbc.Checklist(
                                         id='checklist-selected-style-expense',
@@ -325,7 +331,7 @@ layout = dbc.Col([
         dbc.NavLink('Extratos', href="/extratos", active='exact')
     ], vertical=True, pills=True, id='nav_buttons', style={'margin-bottom': '50px'})
 
-], id='full_sidebar')
+], id='full_sidebar', style=sb_style)
 
 # ========= Callbacks ========= #
 

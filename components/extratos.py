@@ -7,6 +7,7 @@ from dash import html
 import dash_bootstrap_components as dbc
 import plotly.express as px
 import pandas as pd
+from dash_bootstrap_templates import load_figure_template
 
 from app import app
 
@@ -42,12 +43,23 @@ layout = dbc.Col([
     [Input('store-expense', 'data')]
 )
 def show_graph(data):
+    load_figure_template(['LUX'])
     df = pd.DataFrame(data)
     df_grouped = df.groupby('Categoria').sum()[['Valor']].reset_index()
-    graph = px.bar(df_grouped, x='Categoria', y='Valor', title='Despesas Gerais')
-    graph.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
     
-    return graph
+    fig = px.bar(
+        df_grouped, 
+        x='Categoria', 
+        y='Valor',
+        labels={'Valor': '', 'Categoria': ''}, 
+        title='Despesas Gerais',
+        color='Categoria'
+    )
+    
+    fig.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
+    fig.update_yaxes(tickprefix='R$')
+    
+    return fig
 
 # Update expense total balance
 @app.callback(

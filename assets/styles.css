@@ -5,6 +5,25 @@
     /* background-image: url('back_sidebar4.png'); */
 }
 
+.multi_dropdown_style .Select-value{
+    background-color: #1A1A1A;
+}
+
+.multi_dropdown_style .Select-value-label{
+    color: white !important;
+}
+
+.multi_dropdown_style .Select-value-icon{
+    color: white !important;
+}
+
+.logo_app{
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px !important;
+    background-color: rgba(0, 0, 0, 0) !important;
+}
+
 .row{
     --bs-gutter-x: 0rem !important;
 }

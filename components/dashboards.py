@@ -8,6 +8,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import calendar
 from app import app
+from dash_bootstrap_templates import load_figure_template
 
 card_icon = {
     'color': 'white',
@@ -29,7 +30,7 @@ layout = dbc.Col([
                 ], style={'padding-left': '20px', 'padding-top': '10px'}),
                 dbc.Card(
                     html.Div(className='fa fa-usd', style=card_icon),
-                    color='info',
+                    color='#1A1A1A',
                     style={'maxWidth': 75, 'height': 100, 'margin-left': '-10px'}
                 )
             ])
@@ -67,7 +68,6 @@ layout = dbc.Col([
     ], style={'margin': '10px'}),
     
     dbc.Row([
-        
         # Input filters
         dbc.Col([
             dbc.Card([
@@ -80,7 +80,8 @@ layout = dbc.Col([
                         style={'width': '100%'},
                         persistence=True,
                         persistence_type='session',
-                        multi=True
+                        multi=True,
+                        className='multi_dropdown_style',
                     )
                 ),
                 
@@ -95,8 +96,11 @@ layout = dbc.Col([
                     style={'width': '100%'},
                     persistence=True,
                     persistence_type='session',
-                    multi=True
+                    multi=True,
+                    className='multi_dropdown_style'
                 ),
+                
+                html.Hr(),
                 
                 html.Legend(
                     'Período de análise',
@@ -110,7 +114,8 @@ layout = dbc.Col([
                     end_date=datetime.today() + timedelta(days=31),
                     updatemode='singledate',
                     id='date-picker-config',
-                    style={'z-index': '100'}
+                    style={'z-index': '100'},
+                    className='custom-date-picker'
                 )
             ], style={'height': '100%', 'padding': '20px'})
         ], width=4),
@@ -123,7 +128,7 @@ layout = dbc.Col([
         )
         
     ], style={'margin': '10px'})
-])
+], id='full_dashboard')
 
 # =========  Callbacks  =========== #
 
@@ -191,6 +196,7 @@ def total_balance(revenue, expense):
     ]
 )
 def graph_show(data_revenue, data_expense, revenue, expense, start_date, end_date):
+    load_figure_template(['LUX'])
     df_revenue = pd.DataFrame(data_revenue)
     df_expense = pd.DataFrame(data_expense)
     
@@ -210,11 +216,23 @@ def graph_show(data_revenue, data_expense, revenue, expense, start_date, end_dat
         y='Valor', 
         color='Output', 
         barmode='group', 
-        labels={'Output': ''}
+        labels={'Output': '', 'Valor': '', 'Data': ''},
+        color_discrete_map={'Receitas': '#46B26B', 'Despesas': '#D9534F'}
     )
     
-    fig.update_layout(margin=dict(l=25, r=25, t=25, b=0), height=400)
-    fig.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
+    fig.update_traces(hovertemplate='%{y}')
+    
+    fig.update_layout(
+        margin=dict(l=75, r=25, t=25, b=50), 
+        height=600,
+        paper_bgcolor='rgba(0,0,0,0)', 
+        plot_bgcolor='rgba(0,0,0,0.01)',
+        hoverlabel=dict(
+            font_color='white'
+        ) 
+    )
+    
+    fig.update_yaxes(tickprefix='R$')
     
     return fig
     
