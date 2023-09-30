@@ -25,21 +25,6 @@ layout = dbc.Col([
         className='logo_app',
         style={'margin-left': '10px'}
     ),
-    # html.H3("Personal", className='text-primary', style={'text-align': 'center'}),
-    # html.H3("Finance", className='text-primary', style={'text-align': 'center'}),
-    
-    # Perfil
-    # dbc.Button(
-    #     id='avatar-button',
-    #     children=[
-    #         html.Img(
-    #             src='/assets/img_hom.png', 
-    #             id='avatar-change', 
-    #             alt='Avatar', 
-    #             className='perfil_avatar'
-    #         )
-    #     ], style={'background-color': 'transparent', 'border-color': 'transparent', 'margin': 'auto'}
-    # ),
     
     # Add revenue/expense buttons
     dbc.Row([
